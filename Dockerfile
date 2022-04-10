@@ -1,5 +1,4 @@
 FROM nginx:alpine
-COPY ./Template/index.html /usr/share/nginx/html
-COPY ./nginx/nginx.conf /etc/nginx/conf.d/default.conf
-VOLUME /usr/share/nginx/html
-VOLUME /etc/nginx
+ADD https://github.com/MY-Gokumo/testjenkins/index.html /usr/share/nginx/html
+RUN chmod +r /usr/share/nginx/html/index.html
+CMD ["nginx", "-g", "daemon off;"]
