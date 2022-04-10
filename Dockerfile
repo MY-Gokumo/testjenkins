@@ -8,4 +8,4 @@ ADD https://raw.githubusercontent.com/MY-Gokumo/testjenkins/main/Template/index2
 COPY /home/test/ /usr/local/apache2/htdocs/
 # COPY index2.html /usr/share/nginx/html/test /*
 RUN chmod +r /usr/share/nginx/html/
-CMD ["httpd", "-g", "daemon off;"]
+#CMD ["httpd", "-g", "daemon off;"]
