@@ -1,5 +1,4 @@
 FROM nginx:alpine
-USER nginx
 RUN wget https://raw.githubusercontent.com/MY-Gokumo/testjenkins/main/Template/index2.html
 RUN mv index2.html /usr/share/nginx/html/test
 # COPY index2.html /usr/share/nginx/html/test /*
