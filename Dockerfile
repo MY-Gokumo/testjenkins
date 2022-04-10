@@ -1,5 +1,5 @@
 FROM nginx:alpine
-COPY . /usr/share/nginx/html/test
+COPY . /usr/share/nginx/html/
 
 #COPY /home/test/index2.html /usr/local/apache2/htdocs/index.html
 # COPY index2.html /usr/share/nginx/html/test /*
