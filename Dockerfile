@@ -1,5 +1,5 @@
-FROM httpd:2.4
-COPY ./Template/index2.html usr/local/apache2/htdocs/index2.html
+FROM nginx:alpine
+COPY . /usr/share/nginx/html/test
 
 #COPY /home/test/index2.html /usr/local/apache2/htdocs/index.html
 # COPY index2.html /usr/share/nginx/html/test /*
