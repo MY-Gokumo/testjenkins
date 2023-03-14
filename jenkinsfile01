@@ -29,9 +29,10 @@ pipeline{
                        }					  
 
                       timeout(time: 1, unit: 'MINUTES') {
-                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
-                    // true = set pipeline to UNSTABLE, false = don't
-                    waitForQualityGate abortPipeline: true
+                                          def qg = waitForQualityGate(webhookSecretId: 'test')
+                      if (qg.status != 'OK') {
+                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                      }
                       }
                     }
 		    sh "mvn clean install"
