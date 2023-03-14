@@ -23,13 +23,17 @@ pipeline{
                 }
             }
                   steps{
+                      script {
+                        // requires SonarQube Scanner 
+                        scannerHome = tool 'soanrqube-scaner'
+                        }
                       script{
                       withSonarQubeEnv('sonarqube') { 
                       sh "mvn sonar:sonar -Dsonar.projectKey=test2 -Dsonar.login=sqp_bac7222cb3e5877cfbb051452282ede74f43a96d "
                        }					  
 
                       timeout(time: 1, unit: 'MINUTES') {
-                                          def qg = waitForQualityGate()
+                      def qg = waitForQualityGate()
                       if (qg.status != 'OK') {
                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
                       }
