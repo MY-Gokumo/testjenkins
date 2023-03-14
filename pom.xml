@@ -27,18 +27,6 @@
     </dependency>
   </dependencies>
   
-    <build>
-      <pluginManagement>
-        <plugins>
-          <plugin>
-            <groupId>org.sonarsource.scanner.maven</groupId>
-            <artifactId>sonar-maven-plugin</artifactId>
-            <version>3.7.0.1746</version>
-          </plugin>
-        </plugins>
-      </pluginManagement>
-    </build>
-  
     <settings>
         <pluginGroups>
             <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
@@ -60,6 +48,15 @@
     </settings>
   
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>3.7.0.1746</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
