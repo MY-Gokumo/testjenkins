@@ -1,4 +1,4 @@
-currentBuild.displayName = "Final_Demo # "+currentBuild.number
+currentBuild.displayName = "Going Crazy # "+currentBuild.number
 
    def getDockerTag(){
         def tag = sh script: 'git rev-parse HEAD', returnStdout: true
@@ -16,7 +16,6 @@ pipeline{
 
 
               stage('Quality Gate Statuc Check'){
-
                agent {
                 docker {
                 image 'maven'
@@ -28,11 +27,11 @@ pipeline{
                       withSonarQubeEnv('sonarqube') { 
                       sh "mvn sonar:sonar -Dsonar.projectKey=test2 -Dsonar.login=sqp_bac7222cb3e5877cfbb051452282ede74f43a96d "
                        }					  
-		      sleep(60)
+
                       timeout(time: 1, unit: 'MINUTES') {
-                      def qg = waitForQualityGate()
-                      if (qg.status != 'OK') {
-                           error "Pipeline aborted due to quality gate failure: ${qg.status}"
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
                       }
                     }
 		    sh "mvn clean install"
@@ -40,4 +39,4 @@ pipeline{
                 }  
             }
 		}
-	}
+
