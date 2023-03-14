@@ -25,27 +25,26 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
-  
-    <settings>
-        <pluginGroups>
-            <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
-        </pluginGroups>
-        <profiles>
-            <profile>
-                <id>sonar</id>
-                <activation>
-                    <activeByDefault>true</activeByDefault>
-                </activation>
-                <properties>
-                    <!-- Optional URL to server. Default value is http://localhost:9000 -->
-                    <sonar.host.url>
-                      http://192.168.93.134:9000
-                    </sonar.host.url>
-                </properties>
-            </profile>
-         </profiles>
-    </settings>
+  </dependencies>  
+  <settings>
+      <pluginGroups>
+          <pluginGroup>org.sonarsource.scanner.maven</pluginGroup>
+      </pluginGroups>
+      <profiles>
+          <profile>
+              <id>sonar</id>
+              <activation>
+                  <activeByDefault>true</activeByDefault>
+              </activation>
+              <properties>
+                  <!-- Optional URL to server. Default value is http://localhost:9000 -->
+                  <sonar.host.url>
+                    http://192.168.93.134:9000
+                  </sonar.host.url>
+              </properties>
+          </profile>
+       </profiles>
+  </settings>
   
   <build>
     <pluginManagement>
