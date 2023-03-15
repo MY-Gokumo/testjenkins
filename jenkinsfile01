@@ -51,12 +51,12 @@ pipeline{
             stage('Remove Old Image Image'){
               steps{
                   script{
-                      sh """
+                      sh '
                       docker images \
                         | grep mronee/webpage \
                         | awk '{print $3 }' \
                         | xargs -I {} docker rm -f {}
-                      """
+                      '
                   }
               }
             }
