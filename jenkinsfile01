@@ -61,7 +61,7 @@ pipeline{
                  stage('Push Image'){
                     steps{
                         script{
-                          sh 'docker push . mronee/webpage:$Docker_tag'
+                          sh 'docker push mronee/webpage:$Docker_tag'
                         }
                     }     
                  }
