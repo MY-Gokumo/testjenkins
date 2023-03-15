@@ -42,8 +42,19 @@ pipeline{
                      sh "mvn clean install"
                   }
                   }
+                  stage('build'){
+                    steps{
+                        script{
+                          sh 'docker build . -t mronee/maventest:$Docker_tag'
+                          withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
+                          sh 'docker login -u $locker -p $pocker'
+                          }
+			                  }
+                    }
+                  }
+                 }
                 }  
-            }
+
 
 
 
