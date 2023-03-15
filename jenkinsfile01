@@ -16,12 +16,14 @@ pipeline{
 
 
             stage('Quality Gate Statuc Check'){
+
                agent {
                 docker {
                 image 'maven'
                 args '-v $HOME/.m2:/root/.m2'
                 }
                }
+
                   steps ('Analyze static code') {
                     echo 'Analyzing code...'
                       script {
@@ -43,47 +45,59 @@ pipeline{
                      sh "mvn clean install"
                   }
                   }
-                  stage('Remove Image Image'){
-                    steps{
-                        script{
-                          sh 'docker images | grep mronee/webpage | xargs docker rmi'
-			                  }
-                    }
-                  }
-                  stage('Build Image'){
-                    steps{
-                        script{
-                          sh 'docker build . -t mronee/webpage:$Docker_tag'
-			                  }
-                    }
-                  }
-                  stage('Login DockerHub Image'){
-                     steps{
-                        script{
-                          withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
-                          sh 'docker login -u $locker -p $pocker'
-                        }
-                      }
-                     }
-                  }
-                 stage('Push Image'){
-                    steps{
-                        script{
-                          sh 'docker push mronee/webpage:$Docker_tag'
-                        }
-                    }     
-                 }
-                 stage('Run Docker Image'){
-                    steps{
-                        script{
-                          sh 'docker run -d -p 8088:80 mronee/webpage:$Docker_tag'
-                        }
-                    }    
-                 }
-            } 
-          }
+            }
 
+
+            stage('Remove Image Image'){
+              steps{
+                  script{
+                    sh 'docker images | grep mronee/webpage | xargs docker rmi'
+                  }
+              }
+            }
+
+
+            stage('Build Image'){
+              steps{
+                  script{
+                    sh 'docker build . -t mronee/webpage:$Docker_tag'
+                  }
+              }
+            }
+
+
+            stage('Login DockerHub Image'){
+                steps{
+                  script{
+                    withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
+                    sh 'docker login -u $locker -p $pocker'
+                  }
+                }
+                }
+            }
+
+
+            stage('Push Image'){
+              steps{
+                  script{
+                    sh 'docker push mronee/webpage:$Docker_tag'
+                  }
+              }     
+            }
+
+
+            stage('Run Docker Image'){
+              steps{
+                  script{
+                    sh 'docker run -d -p 8088:80 mronee/webpage:$Docker_tag'
+                  }
+              }    
+            }
+          } 
+            
 }
+
+
 
 
 
