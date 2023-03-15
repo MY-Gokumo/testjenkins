@@ -59,13 +59,21 @@ pipeline{
                      }
                   }
                  stage('Push Image'){
-                    sh 'docker push . -t mronee/webpage:$Docker_tag'
+                    steps{
+                        script{
+                          sh 'docker push . -t mronee/webpage:$Docker_tag'
+                        }
+                    }     
                  }
                  stage('Run Docker Image'){
-                    sh 'docker run -d -p 8088:80 mronee/webpage:$Docker_tag'
+                    steps{
+                        script{
+                          sh 'docker run -d -p 8088:80 mronee/webpage:$Docker_tag'
+                        }
+                    }    
                  }
           }
-        }
+}
 
 
 
