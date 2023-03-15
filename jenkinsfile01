@@ -9,7 +9,7 @@ currentBuild.displayName = "Going Crazy # "+currentBuild.number
 pipeline{
         agent any  
         environment{
-	    Docker_tag = getDockerTag()
+	      Docker_tag = getDockerTag()
         }
         
         stages{
@@ -42,18 +42,27 @@ pipeline{
                      sh "mvn clean install"
                   }
                   }
-                  stage('build'){
+                  stage('Build Image'){
                     steps{
                         script{
-                          sh 'docker build . -t mronee/maventest:$Docker_tag'
-                          withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
-                          sh 'docker login -u $locker -p $pocker'
-                          }
+                          sh 'docker build . -t mronee/webpage:$Docker_tag'
 			                  }
                     }
                   }
+                  stage('Login DockerHub Image'){
+                    withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
+                    sh 'docker login -u $locker -p $pocker'
+                    }
+                 stage('Push Image'){
+                    sh 'docker push . -t mronee/webpage:$Docker_tag'
                  }
-                }  
+                 stage('Run Docker Image'){
+                    sh 'docker run -d -p 8088:80 mronee/webpage:$Docker_tag'
+                 }
+          }
+        }
+}    
+
 
 
 
