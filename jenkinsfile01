@@ -35,9 +35,10 @@ pipeline{
                     echo 'Checking quality gate...'
                     sleep(20)
                         timeout(time: 1, unit: 'MINUTES') {
-                        waitForQualityGate abortPipeline: true
+                      def qg = waitForQualityGate()
+                      if (qg.status != 'OK') {
+                      error "Pipeline aborted due to quality gate failure: ${qg.status}"
                       }
-                      
                     }
                      sh "mvn clean install"
                   }
@@ -68,7 +69,7 @@ pipeline{
                  stage('Run Docker Image'){
                     steps{
                         script{
-                          sh 'docker run -p 8088:80 mronee/webpage:$Docker_tag'
+                          sh 'docker run -d -p 8088:80 mronee/webpage:$Docker_tag'
                         }
                     }    
                  }
