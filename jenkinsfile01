@@ -50,9 +50,14 @@ pipeline{
                     }
                   }
                   stage('Login DockerHub Image'){
-                    withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
-                    sh 'docker login -u $locker -p $pocker'
-                    }
+                     steps{
+                        script{
+                          withCredentials([usernamePassword(credentialsId: 'Dockerhuub', passwordVariable: 'pocker', usernameVariable: 'locker')]) {
+                          sh 'docker login -u $locker -p $pocker'
+                        }
+                      }
+                     }
+                  }
                  stage('Push Image'){
                     sh 'docker push . -t mronee/webpage:$Docker_tag'
                  }
