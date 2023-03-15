@@ -9,7 +9,7 @@ currentBuild.displayName = "Going Crazy # "+currentBuild.number
 pipeline{
         agent any  
         environment{
-	      Docker_tag = getDockerTag()
+	      Docker_tag = getDockerTag(*)
         }
         
         stages{
@@ -43,6 +43,13 @@ pipeline{
                      sh "mvn clean install"
                   }
                   }
+                  stage('Remove Image Image'){
+                    steps{
+                        script{
+                          sh 'docker images | grep mronee/webpage | xargs docker rmi'
+			                  }
+                    }
+                  }
                   stage('Build Image'){
                     steps{
                         script{
@@ -73,6 +80,7 @@ pipeline{
                         }
                     }    
                  }
+            } 
           }
 }
 
