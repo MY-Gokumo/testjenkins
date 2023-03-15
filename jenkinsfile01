@@ -9,7 +9,7 @@ currentBuild.displayName = "Going Crazy # "+currentBuild.number
 pipeline{
         agent any  
         environment{
-	      Docker_tag = getDockerTag(*)
+	      Docker_tag = getDockerTag()
         }
         
         stages{
