@@ -48,7 +48,7 @@ pipeline{
             }
 
 
-            stage('Remove Image Image'){
+            stage('Remove Old Image Image'){
               steps{
                   script{
                     sh 'docker images | grep mronee/webpage | xargs docker rmi'
