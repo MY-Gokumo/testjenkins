@@ -32,7 +32,6 @@ pipeline{
                       withSonarQubeEnv('sonarqube') { 
                       sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=test2 -Dsonar.projectKey=test2 -Dsonar.login=sqp_bac7222cb3e5877cfbb051452282ede74f43a96d "
                        }					  
-                  steps('Check Quality Gate'){
                     echo 'Checking quality gate...'
                       script {
                         timeout(time: 1, unit: 'MINUTES') {
@@ -48,5 +47,5 @@ pipeline{
                 }  
             }
 		}
-}
+
 
