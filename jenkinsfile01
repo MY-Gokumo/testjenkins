@@ -48,6 +48,15 @@ pipeline{
             }
 
 
+            stage('Remove Old Image'){
+              steps{
+                  script{
+                      sh 'docker images grep mronee/webpage xargs -I {} docker rm -f {}'
+                  }
+              }
+            }
+
+
             stage('Build Image'){
               steps{
                   script{
